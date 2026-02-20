@@ -28,4 +28,12 @@ class ContextUserView(
             request.user,
             context={'is_supermode': request.is_superuser},
         ).data
+        tenant_account = getattr(request, 'tenant_account', None)
+        data['tenant_context'] = {
+            'id': tenant_account.id,
+            'name': tenant_account.name,
+            'tenant_name': tenant_account.tenant_name,
+            'tenant_slug': tenant_account.tenant_slug,
+            'custom_domain': tenant_account.custom_domain,
+        } if tenant_account else None
         return self.response_ok(data)

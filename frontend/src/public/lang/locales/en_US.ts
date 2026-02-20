@@ -155,6 +155,7 @@ export const enMessages = {
   'user-info.locale.language': 'Language',
   'user-info.locale.language.english': 'English',
   'user-info.locale.language.russia': 'Russia',
+  'user-info.locale.language.arabic': 'Arabic',
   'user-info.locale.timezone': 'Timezone',
 
   'user-info.locale.timezone.baker-island': 'UTC-12:00 - Baker Island',

@@ -12,6 +12,7 @@ import { FullscreenImageContainer } from '../FullscreenImage';
 import { initiatePagesTracking } from '../../utils/analytics/trackPages';
 import { useSyncLoggedTabsState } from './syncLoggedTabsState';
 import { envDevMode } from '../../constants/enviroment';
+import { localeOptions } from '../../constants/defaultValues';
 
 import { AppRoutes } from './AppRoutes';
 import { useFaviconUpdater } from './useFaviconUpdater';
@@ -19,6 +20,7 @@ import { useFaviconUpdater } from './useFaviconUpdater';
 import styles from './App.css';
 
 import '../../assets/css/vendor/bootstrap.min.css';
+import '../../assets/css/vendor/bootstrap.rtl.only.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-phone-number-input/style.css';
 import 'rc-switch/assets/index.css';
@@ -57,12 +59,27 @@ export function App({
   }, []);
 
   const currentAppLocale = AppLocale[locale];
+  const currentLocaleDirection = localeOptions.find((item) => item.id === locale)?.direction;
+
   React.useEffect(() => {
     moment.locale(currentAppLocale.locale);
   }, [currentAppLocale.locale]);
 
+  React.useEffect(() => {
+    const isRtl = currentLocaleDirection === 'rtl';
+    document.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', currentAppLocale.locale);
+    document.body.classList.toggle('rtl', isRtl);
+  }, [currentAppLocale.locale, currentLocaleDirection]);
+
   return (
-    <div className={classnames(styles['pneumatic-frontend-main-wrapper'], 'rounded')}>
+    <div
+      className={classnames(
+        styles['pneumatic-frontend-main-wrapper'],
+        'rounded',
+        currentLocaleDirection === 'rtl' && 'rtl',
+      )}
+    >
       <IntlProvider locale={currentAppLocale.locale} messages={currentAppLocale.messages}>
         <NotificationContainer />
         <AppRoutes user={user} containerClassnames={containerClassnames} />

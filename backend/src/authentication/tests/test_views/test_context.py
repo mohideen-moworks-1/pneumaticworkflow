@@ -31,12 +31,17 @@ def test_context__ok(api_client):
     plan = BillingPlanType.UNLIMITED
     period = BillingPeriod.WEEKLY
     tenant_name = 'Some tenant'
+    tenant_slug = 'some-tenant'
+    custom_domain = 'tenant.moworks.app'
     account = create_test_account(
         logo_lg=logo_lg,
         plan=plan,
         period=period,
         tenant_name=tenant_name,
     )
+    account.tenant_slug = tenant_slug
+    account.custom_domain = custom_domain
+    account.save(update_fields=['tenant_slug', 'custom_domain'])
     user = create_test_user(
         account=account,
         tz=str(timezone),
@@ -86,6 +91,8 @@ def test_context__ok(api_client):
     assert data['account']['id'] == account.id
     assert data['account']['name'] == account.name
     assert data['account']['tenant_name'] == account.tenant_name
+    assert data['account']['tenant_slug'] == account.tenant_slug
+    assert data['account']['custom_domain'] == account.custom_domain
     assert data['account']['date_joined'] == (
         account.date_joined.strftime(date_format)
     )
@@ -111,6 +118,7 @@ def test_context__ok(api_client):
     )
     assert data['account']['trial_is_active'] == account.trial_is_active
     assert data['account']['trial_ended'] == account.trial_ended
+    assert data['tenant_context'] is None
 
 
 def test_context__guest__ok(api_client):
@@ -172,3 +180,32 @@ def test_context__disable_billing_sync__ok(api_client):
     # assert
     assert response.status_code == 200
     assert response.data['account']['billing_sync'] is False
+
+
+def test_context__tenant_context_from_host__ok(api_client):
+
+    # arrange
+    account = create_test_account()
+    user = create_test_user(account=account)
+    tenant_account = create_test_account(
+        lease_level=LeaseLevel.TENANT,
+        master_account=account,
+        tenant_name='Tenant A',
+    )
+    tenant_account.tenant_slug = 'tenant-a'
+    tenant_account.custom_domain = 'tenant-a.customer.com'
+    tenant_account.save(update_fields=['tenant_slug', 'custom_domain'])
+    api_client.token_authenticate(user)
+
+    # act
+    response = api_client.get('/auth/context', HTTP_HOST='tenant-a.customer.com')
+
+    # assert
+    assert response.status_code == 200
+    assert response.data['tenant_context'] == {
+        'id': tenant_account.id,
+        'name': tenant_account.name,
+        'tenant_name': tenant_account.tenant_name,
+        'tenant_slug': tenant_account.tenant_slug,
+        'custom_domain': tenant_account.custom_domain,
+    }

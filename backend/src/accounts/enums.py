@@ -280,6 +280,7 @@ class Language:
     de = 'de'
     fr = 'fr'
     ru = 'ru'
+    ar = 'ar'
 
     CHOICES = (
         (en, 'English'),
@@ -287,6 +288,7 @@ class Language:
         (de, 'German'),
         (fr, 'French'),
         (ru, 'Russian'),
+        (ar, 'Arabic'),
     )
 
     EURO_CHOICES = (
@@ -294,8 +296,9 @@ class Language:
         (es, 'Spanish'),
         (de, 'German'),
         (fr, 'French'),
+        (ar, 'Arabic'),
     )
 
-    LITERALS = Literal[en, es, de, fr, ru]
-    VALUES = (en, es, de, fr, ru)
-    EURO_VALUES = (en, es, de, fr)
+    LITERALS = Literal[en, es, de, fr, ru, ar]
+    VALUES = (en, es, de, fr, ru, ar)
+    EURO_VALUES = (en, es, de, fr, ar)

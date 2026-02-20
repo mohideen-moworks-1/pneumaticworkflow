@@ -119,6 +119,8 @@ class ContextAccountSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'tenant_name',
+            'tenant_slug',
+            'custom_domain',
             'date_joined',
             'date_joined_tsp',
             'is_blocked',  # deprecate

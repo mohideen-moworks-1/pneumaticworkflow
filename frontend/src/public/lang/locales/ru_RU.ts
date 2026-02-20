@@ -149,6 +149,7 @@ export const ruMessages = {
   'user-info.locale.language': 'Язык',
   'user-info.locale.language.english': 'Английский',
   'user-info.locale.language.russia': 'Русский',
+  'user-info.locale.language.arabic': 'Арабский',
   'user-info.locale.timezone': 'Часовой пояс',
 
   'user-info.locale.timezone.baker-island': 'UTC-12:00 - Остров Бейкер',

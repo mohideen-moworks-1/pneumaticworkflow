@@ -160,6 +160,7 @@ class Common(Configuration):
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
+        'src.accounts.middleware.TenantResolutionMiddleware',
         'src.authentication.middleware.UserAgentMiddleware',
         'src.authentication.middleware.AuthMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
@@ -266,7 +267,7 @@ class Common(Configuration):
     # Email
     DEFAULT_FROM_EMAIL = env.get(
         'DEFAULT_FROM_EMAIL',
-        'Pneumatic <no-reply@pneumatic.app>',
+        'moworks <no-reply@moworks.app>',
     )
     EMAIL_DATE_FORMAT = '%a, %d %b %Y %I:%M:%S %p UTC'
     EMAIL_PROVIDER = env.get('EMAIL_PROVIDER')
@@ -296,6 +297,13 @@ class Common(Configuration):
     CONFIGURATION_CURRENT = env.get(
         'ENVIRONMENT', CONFIGURATION_DEV,
     ).title()
+
+
+    BRAND_NAME = env.get('BRAND_NAME', 'moworks')
+
+    # Multitenancy
+    MULTITENANCY_ENABLED = env.get('MULTITENANCY_ENABLED', 'yes') == 'yes'
+    MULTITENANCY_BASE_DOMAIN = env.get('MULTITENANCY_BASE_DOMAIN', 'moworks.app')
 
     # Stripe
     STRIPE_SECRET_KEY = env.get('STRIPE_SECRET_KEY')

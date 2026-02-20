@@ -1,4 +1,4 @@
-export const PNEUMATIC_SUFFIX = '| Pneumatic';
+export const PNEUMATIC_SUFFIX = '| moworks';
 
 export const TITLES = {
   'Register': `Sign Up ${PNEUMATIC_SUFFIX}`,
