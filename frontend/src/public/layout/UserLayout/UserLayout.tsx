@@ -35,7 +35,7 @@ export function UserLayout({ children, pages }: IUserLayoutProps) {
 
           {titleState && (
             <>
-              <a href="https://www.pneumatic.app/" target="_blank" rel="noreferrer">
+              <a href="https://www.moworks.app/" target="_blank" rel="noreferrer">
                 <LogoCircle className={styles['info__logo']} />
               </a>
               <Header tag="h1" size="xl" className={styles['info__title']}>

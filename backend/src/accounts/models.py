@@ -124,6 +124,20 @@ class Account(SoftDeleteModel):
         blank=True,
         max_length=255,
     )
+    tenant_slug = models.SlugField(
+        max_length=255,
+        null=True,
+        blank=True,
+        unique=True,
+        help_text='Used to resolve tenants by subdomain.',
+    )
+    custom_domain = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        unique=True,
+        help_text='Custom tenant domain used for domain-based multitenancy.',
+    )
     tmp_subscription = models.BooleanField(
         default=False,
         help_text=(

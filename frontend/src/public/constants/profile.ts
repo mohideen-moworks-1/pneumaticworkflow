@@ -4,6 +4,7 @@ import { TDropdownOptionBase } from "../components/UI";
 // The Russian language is present, but it should not be shown yet
 export const LANGUAGE_OPTIONS: TDropdownOptionBase[] = [
   { label: 'user-info.locale.language.english', value: 'en' },
+  { label: 'user-info.locale.language.arabic', value: 'ar' },
   (envLanguageCode === 'ru' && { label: 'user-info.locale.language.russia', value: 'ru' })
 ].filter(Boolean) as unknown as TDropdownOptionBase[];
 

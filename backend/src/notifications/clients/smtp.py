@@ -130,7 +130,7 @@ class SMTPEmailClient(EmailClient):
             EmailType.TASK_RETURNED: 'Task Returned',
             EmailType.OVERDUE_TASK: 'Task Overdue',
             EmailType.GUEST_NEW_TASK: 'New Task Assigned',
-            EmailType.MENTION: 'You have been mentioned on Pneumatic',
+            EmailType.MENTION: 'You have been mentioned on moworks',
             EmailType.RESET_PASSWORD: 'Password Reset',
             EmailType.ACCOUNT_VERIFICATION: 'Account Verification',
             EmailType.USER_DEACTIVATED: 'Your account was deactivated',
@@ -138,12 +138,12 @@ class SMTPEmailClient(EmailClient):
             EmailType.WORKFLOWS_DIGEST: 'Workflows Weekly Digest',
             EmailType.TASKS_DIGEST: 'Tasks Weekly Digest',
             EmailType.UNREAD_NOTIFICATIONS: (
-                'You have unread notifications on Pneumatic'
+                'You have unread notifications on moworks'
             ),
             EmailType.INVITE: 'Join your team 👥',
         }
 
-        return subjects.get(template_code, f'Pneumatic - {template_code}')
+        return subjects.get(template_code, f'moworks - {template_code}')
 
     def _get_fallback_template(
             self,
@@ -155,7 +155,7 @@ class SMTPEmailClient(EmailClient):
         html_content = f"""
         <html>
         <body>
-            <h2>Pneumatic</h2>
+            <h2>moworks</h2>
             <p>Email notification</p>
             <p>Template: {template_code}</p>
         </body>
